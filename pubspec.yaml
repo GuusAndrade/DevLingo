@@ -1,0 +1,67 @@
+name: devlingo
+description: "DevLingo - Ingles tecnico gamificado para desenvolvedores em equipes internacionais"
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.10.7
+  flutter: ">=3.38.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # State management
+  flutter_bloc: ^8.1.6
+  bloc: ^8.1.4
+
+  # Dependency injection
+  get_it: ^7.7.0
+  injectable: ^2.4.4
+
+  # Routing
+  go_router: ^14.6.2
+
+  # Functional error handling (Either, Option)
+  fpdart: ^1.1.0
+
+  # Immutable models
+  freezed_annotation: ^2.4.4
+  json_annotation: ^4.9.0
+  equatable: ^2.0.5
+
+  # Local persistence (offline-first)
+  drift: ^2.21.0
+  drift_flutter: ^0.2.4
+  sqlite3_flutter_libs: ^0.5.30
+  path_provider: ^2.1.5
+  flutter_secure_storage: ^9.2.2
+
+  # Backend
+  supabase_flutter: ^2.8.0
+
+  # Utils
+  connectivity_plus: ^6.1.0
+  intl: ^0.20.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # Code generation
+  build_runner: ^2.4.13
+  freezed: ^2.5.7
+  json_serializable: ^6.8.0
+  injectable_generator: ^2.6.2
+  drift_dev: ^2.21.0
+
+  # Testing
+  bloc_test: ^9.1.7
+  mocktail: ^1.0.4
+
+  # Lints
+  very_good_analysis: ^7.0.0
+
+flutter:
+  uses-material-design: true

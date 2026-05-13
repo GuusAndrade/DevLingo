@@ -13,6 +13,8 @@ import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:devlingo/src/app/environment/env.dart' as _i1035;
 import 'package:devlingo/src/core/di/register_module.dart' as _i1017;
 import 'package:devlingo/src/core/network/connectivity_service.dart' as _i1015;
+import 'package:devlingo/src/core/routing/app_router.dart' as _i270;
+import 'package:devlingo/src/core/routing/guards/auth_guard.dart' as _i0;
 import 'package:devlingo/src/core/storage/app_database.dart' as _i386;
 import 'package:devlingo/src/core/supabase/supabase_service.dart' as _i963;
 import 'package:get_it/get_it.dart' as _i174;
@@ -42,8 +44,14 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.envProd,
       registerFor: {_prod},
     );
+    gh.lazySingleton<_i0.AuthGuard>(
+      () => _i0.AuthGuard(gh<_i963.SupabaseService>()),
+    );
     gh.lazySingleton<_i1015.ConnectivityService>(
       () => _i1015.ConnectivityService(gh<_i895.Connectivity>()),
+    );
+    gh.lazySingleton<_i270.AppRouter>(
+      () => _i270.AppRouter(gh<_i0.AuthGuard>(), gh<_i963.SupabaseService>()),
     );
     return this;
   }

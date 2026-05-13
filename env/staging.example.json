@@ -1,0 +1,5 @@
+{
+  "ENVIRONMENT": "staging",
+  "SUPABASE_URL_STAGING": "https://your-staging-project-ref.supabase.co",
+  "SUPABASE_ANON_KEY_STAGING": "your-staging-anon-key-here"
+}

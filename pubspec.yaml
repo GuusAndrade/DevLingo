@@ -43,3 +43,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter/Inter-Variable.ttf
+        - asset: assets/fonts/Inter/Inter-Italic-Variable.ttf
+          style: italic
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono/JetBrainsMono-Variable.ttf

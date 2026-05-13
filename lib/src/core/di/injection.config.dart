@@ -21,6 +21,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 const String _dev = 'dev';
+const String _staging = 'staging';
 const String _prod = 'prod';
 
 extension GetItInjectableX on _i174.GetIt {
@@ -36,6 +37,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1035.Env>(
       () => registerModule.envDev,
       registerFor: {_dev},
+    );
+    gh.lazySingleton<_i1035.Env>(
+      () => registerModule.envStaging,
+      registerFor: {_staging},
     );
     gh.singleton<_i963.SupabaseService>(
       () => _i963.SupabaseService(gh<_i1035.Env>()),

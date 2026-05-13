@@ -1,0 +1,44 @@
+---
+description: Clean Architecture rules and conventions for DevLingo
+alwaysApply: true
+---
+
+# Clean Architecture
+
+Feature-first under `lib/src/modules/<feature>/`. Each feature has three layers:
+
+```
+modules/<feature>/
+├── domain/           # entities, repository contracts, usecases — PURE
+├── infrastructure/   # datasources, dtos, mappers, repository impls
+└── presentation/     # blocs, pages, widgets, module_routes.dart
+```
+
+## Golden rule
+
+`domain` MUST NOT import from `infrastructure` or `presentation`. Dependencies point inward only.
+
+## Layer responsibilities
+
+- **Domain**: immutable entities with `freezed` (NO `json_serializable` here). Repository contracts as `abstract interface class`. UseCases follow base `UseCase<Output, Input>` from `core/usecases/usecase.dart`.
+- **Infrastructure**: DataSources do raw I/O and throw `Exception`s. DTOs use `freezed + json_serializable`. Mappers as extension methods (`UserDtoX.toEntity()`). Repository impls catch exceptions and return `Either<AppFailure, T>`. Decide local-vs-remote (offline-first).
+- **Presentation**: Blocs depend ONLY on usecases, never repositories. States modeled with `freezed` sealed classes. Pages are dumb (only listen to bloc and render).
+
+## Naming
+
+- Interface: `IAuthRepository` / Impl: `AuthRepository`
+- UseCase: `SignInUseCase`, `GetProfileUseCase`
+- Bloc: `AuthBloc`, `AuthState`, `AuthEvent` (or Cubit + State for simple flows)
+- DTO: `UserDto`; Entity: `User`
+
+## DI annotations
+
+- `@injectable` — new instance per call (usecases)
+- `@lazySingleton` — first-call instantiated (repositories, datasources)
+- `@singleton` — eager (services like `AppDatabase`, `SupabaseService`)
+
+## Cross-feature code
+
+- `lib/src/core/` — DI, errors (`AppFailure`), network, routing, storage, supabase, base usecase, extensions.
+- `lib/src/design_system/` — theme + reusable components.
+- `lib/src/app/` — `main.dart`, `bootstrap.dart`, `app_widget.dart`, environment config.

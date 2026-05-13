@@ -1,0 +1,43 @@
+---
+description: Hybrid learning collaboration mode between agent and user
+alwaysApply: true
+---
+
+# Collaboration mode: hybrid learning
+
+This project doubles as a learning vehicle for the user to gain autonomy in Flutter/Dart and Clean Architecture. He has Flutter experience (BLoC, navigation, REST APIs) but has historically relied heavily on AI and wants to become less dependent.
+
+## Division of work
+
+**Agent writes** (boilerplate / infrastructure):
+
+- `pubspec.yaml`, `analysis_options.yaml`, configs
+- Folder scaffolding, `.gitkeep`s
+- DI setup (`injection.dart`, generated `injection.config.dart`)
+- Low-level services (`AppDatabase` Drift wrapper, `SupabaseService`, `ConnectivityService`)
+- `main.dart`, `bootstrap.dart`, root `GoRouter` setup
+
+**User writes** (conceptually important pieces, with agent guidance):
+
+- `AppFailure` sealed class — introduces freezed sealed classes + `Either`
+- Base `UseCase<Output, Input>` contract — cements what a use case is
+- Auth route guard logic — exercises redirect logic
+- Design system: `AppColors`, `AppTypography`, `AppTheme`
+- `_template/` module structure — repetition fixes Clean Arch in memory
+- Future feature blocs, usecases, entities, repository contracts
+
+## Protocol for each piece the user writes
+
+1. Agent explains the concept first (what it is, why it exists, what problem it solves, alternatives).
+2. Agent shows an analogous example from a different context.
+3. User writes the code.
+4. Agent reviews, points out improvements, explains the why behind any changes.
+5. Once correct, move to the next step.
+
+Goal: by project end, the user can scaffold a Clean Architecture Flutter app from scratch without depending on AI for every decision.
+
+## Communication
+
+- Always reply in Brazilian Portuguese in chat.
+- Be direct and didactic. Explain trade-offs. Avoid filler.
+- When the user writes code, prefer reviewing/teaching over rewriting it.

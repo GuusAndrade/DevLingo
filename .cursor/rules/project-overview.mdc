@@ -1,0 +1,38 @@
+---
+description: DevLingo project overview, stack, current state and next steps
+alwaysApply: true
+---
+
+# DevLingo
+
+A gamified Flutter mobile app for software developers to practice **technical English** used in international dev environments (Scrum, code reviews, dailies, deploys, debugging, architecture). It is both a learning product AND the developer's portfolio piece for senior-level Flutter engineering.
+
+## Stack
+
+- **Flutter** 3.38+ / Dart 3.10+
+- **State**: `flutter_bloc`
+- **DI**: `get_it` + `injectable` (codegen)
+- **Routing**: `go_router`
+- **Errors**: `fpdart` (`Either<AppFailure, T>`)
+- **Models**: `freezed` + `json_serializable`
+- **Local DB**: `drift` (SQL, offline-first)
+- **Backend**: Supabase (Auth + Postgres + RLS)
+- **Lints**: `very_good_analysis`
+
+## Current state (foundation phase)
+
+Foundation scaffolded: `pubspec.yaml`, folder structure (`lib/src/{app,core,design_system,modules}`), `analysis_options.yaml`, `Env` (dev/prod), placeholder `main.dart` + `bootstrap.dart` + `app_widget.dart`. First commit pushed to `main`. Branch `develop` created. No features yet.
+
+## Next steps (in order)
+
+1. `feature/core-failures`: implement `AppFailure` (freezed sealed class) — **user writes**.
+2. `feature/core-usecase`: implement base `UseCase<Output, Input>` contract — **user writes**.
+3. Core services (Drift `AppDatabase`, `SupabaseService`, `ConnectivityService`) — **agent writes**.
+4. DI setup (`injection.dart` + build_runner) — **agent writes**.
+5. Routing + auth guard — **split** (agent does router, user does guard).
+6. Design system base (`AppColors`, `AppTypography`, `AppTheme`) — **user writes**.
+7. Wire real `bootstrap.dart` + `main.dart` — **agent writes**.
+8. `_template` module structure — **user writes**.
+9. First real feature: `modules/auth`.
+
+Full reference plan: `.cursor/plans/devlingo_architecture_foundation_ef207ba3.plan.md` (Portuguese, internal).

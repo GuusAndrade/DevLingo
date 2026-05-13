@@ -1,0 +1,47 @@
+---
+description: Git workflow, branch strategy and language conventions
+alwaysApply: true
+---
+
+# Git workflow
+
+Simplified Git Flow:
+
+```
+main          ← stable, deployable, PROTECTED (PRs only, no force-push)
+  ↑ merge when a milestone is finished and tested
+develop       ← integration branch, source of truth for new features
+  ↑ Pull Request
+feature/<short-name>
+```
+
+## Branches
+
+- New work starts from `develop`:
+  ```bash
+  git checkout develop && git pull
+  git checkout -b feature/<name>
+  ```
+- Naming: `feature/auth-supabase`, `fix/login-redirect-loop`, `chore/upgrade-deps`
+- PRs target `develop`. Squash recommended when merging.
+- `develop` → `main` only when a set of features is stable and tested.
+
+## Commits — Conventional Commits
+
+```
+feat:     new feature
+fix:      bug fix
+chore:    maintenance (deps, configs)
+refactor: refactor without behavior change
+docs:     documentation
+test:     tests
+style:    formatting
+```
+
+Example: `feat(auth): add sign-in form with email/password validation`
+
+## Language
+
+- ALL repository content in **English**: README, code comments, commit messages, branch names, PR titles/descriptions, issues, error messages, log strings.
+- Chat conversations with the user remain in **Brazilian Portuguese**.
+- Reason: project doubles as international portfolio and forces practice of the technical English vocabulary that the app itself teaches.

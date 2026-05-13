@@ -65,15 +65,23 @@ Clean Architecture golden rule: `domain` never imports from `infrastructure` or 
    dart run build_runner build --delete-conflicting-outputs
    ```
 
-3. Run the app in the dev flavor (passing Supabase keys via `--dart-define`):
+3. Configure local Supabase credentials. Copy the example file and fill it in:
 
    ```bash
-   flutter run \
-     --dart-define=SUPABASE_URL_DEV=<your-url> \
-     --dart-define=SUPABASE_ANON_KEY_DEV=<your-anon-key>
+   cp env/dev.example.json env/dev.json
    ```
 
-   For production, use the `*_PROD` variables and a `main_prod.dart` entry point.
+   Open `env/dev.json` and replace the placeholders with the values from your Supabase project (**Project Settings → API**: `Project URL` and `anon public` key).
+
+   `env/dev.json` is git-ignored — credentials never leave your machine.
+
+4. Run the app in the dev flavor:
+
+   ```bash
+   flutter run --dart-define-from-file=env/dev.json
+   ```
+
+   For production, create `env/prod.json` (also git-ignored) following the same pattern with `*_PROD` keys, and run from a `main_prod.dart` entry point.
 
 ## Branching strategy
 

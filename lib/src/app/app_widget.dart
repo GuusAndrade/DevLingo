@@ -1,3 +1,6 @@
+import 'package:devlingo/src/app/environment/env.dart';
+import 'package:devlingo/src/core/di/injection.dart';
+import 'package:devlingo/src/core/routing/app_router.dart';
 import 'package:flutter/material.dart';
 
 class AppWidget extends StatelessWidget {
@@ -5,27 +8,10 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'DevLingo',
+    return MaterialApp.router(
+      title: getIt<Env>().appName,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'DevLingo',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Foundation OK. Building features...',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
-          ),
-        ),
-      ),
+      routerConfig: getIt<AppRouter>().config,
     );
   }
 }

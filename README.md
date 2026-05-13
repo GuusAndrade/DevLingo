@@ -65,15 +65,31 @@ Clean Architecture golden rule: `domain` never imports from `infrastructure` or 
    dart run build_runner build --delete-conflicting-outputs
    ```
 
-3. Run the app in the dev flavor (passing Supabase keys via `--dart-define`):
+3. Configure local Supabase credentials for the environments you need. Copy the example file(s) and fill them in:
 
    ```bash
-   flutter run \
-     --dart-define=SUPABASE_URL_DEV=<your-url> \
-     --dart-define=SUPABASE_ANON_KEY_DEV=<your-anon-key>
+   cp env/dev.example.json     env/dev.json
+   cp env/staging.example.json env/staging.json   # optional
+   cp env/prod.example.json    env/prod.json      # optional
    ```
 
-   For production, use the `*_PROD` variables and a `main_prod.dart` entry point.
+   Open each file and replace the placeholders with the values from the matching Supabase project (**Project Settings → API**: `Project URL` and `anon public` key).
+
+   `env/*.json` files are git-ignored — credentials never leave your machine. Only `*.example.json` templates are committed.
+
+4. Run the app. Three options:
+
+   - **From VS Code / Cursor**: pick one of the launch configurations in the **Run and Debug** panel (`DevLingo (dev)`, `DevLingo (staging)`, `DevLingo (prod)`).
+
+   - **From the terminal**:
+
+     ```bash
+     flutter run --dart-define-from-file=env/dev.json
+     flutter run --dart-define-from-file=env/staging.json
+     flutter run --dart-define-from-file=env/prod.json
+     ```
+
+   The `ENVIRONMENT` key inside each JSON tells `bootstrap` which `Env` implementation to register (`@dev` / `@Environment('staging')` / `@prod`).
 
 ## Branching strategy
 

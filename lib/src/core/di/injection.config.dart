@@ -29,6 +29,8 @@ import 'package:devlingo/src/modules/_template/infrastructure/datasources/templa
     as _i174;
 import 'package:devlingo/src/modules/_template/infrastructure/datasources/template_remote_datasource.dart'
     as _i21;
+import 'package:devlingo/src/modules/_template/infrastructure/repositories/template_repository.dart'
+    as _i23;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -73,11 +75,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1015.ConnectivityService>(
       () => _i1015.ConnectivityService(gh<_i895.Connectivity>()),
     );
-    gh.factory<_i1014.GetTemplateByIdUseCase>(
-      () => _i1014.GetTemplateByIdUseCase(gh<_i902.ITemplateRepository>()),
+    gh.lazySingleton<_i902.ITemplateRepository>(
+      () => _i23.TemplateRepository(
+        gh<_i985.ITemplateLocalDataSource>(),
+        gh<_i866.ITemplateRemoteDataSource>(),
+      ),
     );
     gh.lazySingleton<_i270.AppRouter>(
       () => _i270.AppRouter(gh<_i0.AuthGuard>(), gh<_i963.SupabaseService>()),
+    );
+    gh.factory<_i1014.GetTemplateByIdUseCase>(
+      () => _i1014.GetTemplateByIdUseCase(gh<_i902.ITemplateRepository>()),
     );
     return this;
   }

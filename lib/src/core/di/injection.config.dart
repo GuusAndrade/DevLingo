@@ -17,6 +17,18 @@ import 'package:devlingo/src/core/routing/app_router.dart' as _i270;
 import 'package:devlingo/src/core/routing/guards/auth_guard.dart' as _i0;
 import 'package:devlingo/src/core/storage/app_database.dart' as _i386;
 import 'package:devlingo/src/core/supabase/supabase_service.dart' as _i963;
+import 'package:devlingo/src/modules/_template/domain/repositories/i_template_repository.dart'
+    as _i902;
+import 'package:devlingo/src/modules/_template/domain/usecases/get_template_usecase.dart'
+    as _i1014;
+import 'package:devlingo/src/modules/_template/infrastructure/datasources/i_template_local_datasource.dart'
+    as _i985;
+import 'package:devlingo/src/modules/_template/infrastructure/datasources/i_template_remote_datasource.dart'
+    as _i866;
+import 'package:devlingo/src/modules/_template/infrastructure/datasources/template_local_datasource.dart'
+    as _i174;
+import 'package:devlingo/src/modules/_template/infrastructure/datasources/template_remote_datasource.dart'
+    as _i21;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -42,8 +54,14 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.envStaging,
       registerFor: {_staging},
     );
+    gh.lazySingleton<_i985.ITemplateLocalDataSource>(
+      () => _i174.TemplateLocalDataSource(),
+    );
     gh.singleton<_i963.SupabaseService>(
       () => _i963.SupabaseService(gh<_i1035.Env>()),
+    );
+    gh.lazySingleton<_i866.ITemplateRemoteDataSource>(
+      () => _i21.TemplateRemoteDataSource(),
     );
     gh.lazySingleton<_i1035.Env>(
       () => registerModule.envProd,
@@ -54,6 +72,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i1015.ConnectivityService>(
       () => _i1015.ConnectivityService(gh<_i895.Connectivity>()),
+    );
+    gh.factory<_i1014.GetTemplateByIdUseCase>(
+      () => _i1014.GetTemplateByIdUseCase(gh<_i902.ITemplateRepository>()),
     );
     gh.lazySingleton<_i270.AppRouter>(
       () => _i270.AppRouter(gh<_i0.AuthGuard>(), gh<_i963.SupabaseService>()),

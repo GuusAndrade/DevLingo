@@ -31,6 +31,8 @@ import 'package:devlingo/src/modules/_template/infrastructure/datasources/templa
     as _i21;
 import 'package:devlingo/src/modules/_template/infrastructure/repositories/template_repository.dart'
     as _i23;
+import 'package:devlingo/src/modules/_template/presentation/blocs/template_cubit.dart'
+    as _i26;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -86,6 +88,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1014.GetTemplateByIdUseCase>(
       () => _i1014.GetTemplateByIdUseCase(gh<_i902.ITemplateRepository>()),
+    );
+    gh.factory<_i26.TemplateCubit>(
+      () => _i26.TemplateCubit(gh<_i1014.GetTemplateByIdUseCase>()),
     );
     return this;
   }
